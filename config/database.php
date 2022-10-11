@@ -3,7 +3,7 @@ class Database{
     public $host = 'localhost'; /* SERVIDOR */
     public $user = 'root'; /* USUARIO DE PHPMYADMIN */
     public $pass = '';  /* CONTRASEÑA PHPMYADMIN */
-    public $db = 'Asesoria'; /* NOMBRE DE MI BASE DE DATOS */
+    public $db = 'asesoria'; /* NOMBRE DE MI BASE DE DATOS */
     private $conexion; /* CONEXION DE MI BD PRIVADA */
 
     function __construct(){

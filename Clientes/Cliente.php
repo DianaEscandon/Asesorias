@@ -1,48 +1,45 @@
 <?php
-
+include('../config/database.php'); /* CONEXION A LA BD */
 include_once('../config/config.php');
 class cliente{
     public $conexion;
 
-   function __constructt()
-
-{
-    $db = new Database();
-    $this->conexion=$db->connectToDatabase();
-}
+    function __construct(){
+        $db= new Database(); /* LA CONEXION A LA BD SIEMPRE SE RENUEVE O ESTE EN LINEA */
+        $this->conexion = $db->connectToDatabase();
+    }
 function save($params){
 
     $nombres = $params ['nombres'];
     $apellidos = $params['apellidos'];
-    $correo = $params['correo'];
     $celular = $params['celular'];
-    $image = $params['Image'];
+    $correo = $params['correo'];
 
-    $insert = "INSERT INTO Clientes VALUES ('$nombres','$apellidos','$correo',$celular, '$image')";
+    $insert= "INSERT INTO clientes VALUES (NULL, '$nombres', '$apellidos', '$celular', '$correo')";
     return mysqli_query($this->conexion,$insert);
 }
 function getAll(){
-    $sql = "SELECT * FROM Clientes ORDER BY sessionDate ASC";
-    return mysqli_query($this->conn, $sql);
+    $sql = "SELECT * FROM clientes ";
+    return mysqli_query($this->conexion, $sql);
 
 }
 function getOne($id){
-$sql="SELECT * FROM Clientes WHERE id = $id"; 
-return mysqli_query($this->conn, $sql);
+$sql="SELECT * FROM clientes WHERE id = $id"; 
+return mysqli_query($this->conexion, $sql);
 }
 function update($params){
-    $nombres = $params ['nombres'];
-    $apellidos = $params['apellidos'];
-    $correo = $params['correo'];
-    $celular = $params['celular'];
+    $nombres = $params ['Nombres'];
+    $apellidos = $params['Apellidos'];
+    $celular = $params['Celular'];
+    $correo = $params['Correo'];
     $id = $params['id'];
 
- $update = " UPDATE Clientes SET nombres='$nombres', apellidos='$apellidos', correo ='$correo', celular='$celular'id= $id";
- return mysqli_query($this->conn, $update); 
+ $update = " UPDATE Clientes SET nombres='$nombres', apellidos='$apellidos', correo ='$celular', celular='$correo' WHERE id = $id";
+ return mysqli_query($this->conexion, $update); 
 }
 function remove($id){
-    $remove="DELETE FROM Patients WHERE id= $id";
-    return mysqli_query($this->conn,$remove);
+    $remove="DELETE FROM clientes WHERE id= $id";
+    return mysqli_query($this->conexion,$remove);
 }
 }
 ?>

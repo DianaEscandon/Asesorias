@@ -3,12 +3,9 @@ include('../config/config.php');
 include('cliente.php');
 $p= new Cliente();
 $data = mysqli_fetch_object($p->getOne($_GET['id' ]));
-$data=new DateTime($data->sessionDate);
+
 if(isset ($_POST) && !empty($_POST)){
-    $_POST['image'] = $data->image;
-    if($_FILES['image']['name'] !== ''){
-        $_POST['image']= saveImage($_FILES);
-}
+ 
 $update=$p->update($_POST);
 if ($update){
     $error='<div class="alert alert-success" role="alert"> Paciente modificado correctamente</div>';
@@ -36,25 +33,26 @@ if ($update){
     ?>
     <h2 class="text-center mb-5"> Modificar paciente</h2>
     <form method="POST" enctype="multipart/form-data">
-        <div class="row mb-2">
-            <div class ="col">
-                <input type="text" name="Nombres" id="Nombres" placeholder="Nombre Cliente" require class="form-control" value="<?= $data->Nombres?>"/>
-                <input type="hidden" name="id" id="id" value="<?= $data->id?>">
-            </div>
-            <div class="col">
-            <input type="text" name="Apellidos" id="Apellidos" placeholder="Apellidos Cliente" require class="form-control" value="<?= $data->Apellidos?>"/>
-            </div>
+
+<div class="row mb-2">
+    <div class="col-6">  <!-- NO MAYUSCULAS EN NAMES Y ID'S, debe ser igual a la BD -->
+        <input type="text" name="Nombres" id="Nombres" placeholder="Nombres del cliente" class="form-control" value="<?= $data->Nombres ?>"/>
+        <input type="hidden" name="id" id="id"  class="form-control" value="<?= $data->id ?>"/>
+        </div>
+        <div class="col-6">
+            <input type="text" name="Apellidos" id="Apellidos" placeholder="Apellidos del cliente" class="form-control" value="<?= $data->Apellidos ?>"/>
+
         </div>
         <div class="row mb-2">
-            <div class="col">
-            <input type="text" name="Correo" id="Correo" placeholder="Correo Cliente" require class="form-control" value="<?= $data->Correo?>"/>  
-            </div>
-            <div class="col">
-            <input type="number" name="Numero" id="Numero" placeholder="Numero Cliente" require class="form-control" value="<?= $data->Numero?>"/>
-            </div>
+    <div class="col-6">
+        <input type="text" name="Celular" id="Celular " placeholder="Celular del cliente" class="form-control" value="<?= $data->Celular ?>"/>
         </div>
-        <button class="btn btn-success"> Modificar</button>
-    </form>
+        <div class="col-6">
+            <input type="email" name="Correo" id="Correo" placeholder="Correo del cliente" value="<?= $data->Correo ?>" class="form-control"/>
+        </div>
+</div>
+<button class="btn btn-success">Registrar</button>
+</form>
 </div>
 </body>
 </html>
